@@ -15,11 +15,10 @@ class Question extends React.Component {
       ...props.question.incorrect_answers,
       props.question.correct_answer,
     ]);
-  }
-
+    }
   handleGuess = (answer) => {
     // set guessed to true, and set guess to the selected answer
-    this.setState({ guessed: true, guess: answer });
+    this.setState({ guessed: true, guess: answer.target.textContent });
   };
 
   render() {
@@ -35,14 +34,23 @@ class Question extends React.Component {
             <AnswerButton
               key={answer}
               answer={answer}
+            handleGuess={this.handleGuess}
+
             />
           ))}
         </div>
+  
+    {
 
-        {/* Dynamically render correct/incorrect here! */}
-      </div>
-    );
-  }
+this.state.guessed && this.state.guess === this.props.question.correct_answer ? (<div>
+    <h1>Correct!</h1> </div> ) 
+    : 
+this.state.guessed && this.state.guess !== this.props.question.correct_answer ? <h1>Incorrect! The correct answer is {decodeHTML(this.props.question.correct_answer)}</h1> : ""
+
+}
+</div>
+);
+}
 }
 
 export { Question };
